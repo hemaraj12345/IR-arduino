@@ -1,0 +1,42 @@
+#include <IRremote.h>
+
+int RECV_PIN = 11; 
+
+String Code1;
+String option_A;
+String option_B;
+String option_C;
+
+IRrecv irrecv(RECV_PIN);
+decode_results results;
+
+void setup(){
+  Serial.begin(9600);
+  irrecv.enableIRIn();
+
+  option_A = String("a90"); 
+  option_B = String("a91"); 
+  option_C = String("a92"); 
+}
+
+void loop() {
+  if (irrecv.decode(&results)){
+    Code1 = String(results.value, HEX);
+    check_code();
+    irrecv.resume(); 
+
+  }
+
+}
+
+void check_code(){
+  if (Code1.equals(option_A)){
+    Serial.println("option_A selected");
+  }
+  else if (Code1.equals(option_B)){
+    Serial.println("option_B selected");
+  }
+  else if (Code1.equals(option_C)){
+     Serial.print("option_C selected");
+  }
+}
