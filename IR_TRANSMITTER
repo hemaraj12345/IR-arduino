@@ -1,0 +1,54 @@
+
+#include<IRremote.h> // infrared library 
+
+IRsend irsend;
+
+
+const int BUTTON_B = 9;
+const int BUTTON_C = 10;
+const int BUTTON_D = 11;
+
+// declaring pins for buttons
+
+int BUTTONSTATE_B;
+int BUTTONSTATE_C;
+int BUTTONSTATE_D; 
+
+// variables to store the button state
+
+void setup(){
+
+  pinMode(BUTTON_B, OUTPUT);
+  pinMode(BUTTON_C, OUTPUT);
+  pinMode(BUTTON_D, OUTPUT);
+  }
+  void loop (){
+
+   BUTTONSTATE_B = digitalRead(BUTTON_B); 
+   BUTTONSTATE_C = digitalRead(BUTTON_C);
+   BUTTONSTATE_D = digitalRead(BUTTON_D);
+  
+   if (BUTTONSTATE_B == HIGH){
+    for(int i = 0; i < 3; i++){
+      irsend.sendSony(0xa90, 12);
+      delay(10); //delay for each signel burst
+    }
+   }
+   
+     
+    else if (BUTTONSTATE_C == HIGH){
+    for(int i = 0; i < 3; i++){
+      irsend.sendSony(0xa91, 12);
+      delay(10);
+    }
+   }
+    
+    else if (BUTTONSTATE_D == HIGH){
+    for(int i = 0; i < 3; i++){
+      irsend.sendSony(0xa92, 12);
+      delay(10);
+    }
+   }
+   
+    
+  }
